@@ -1,10 +1,14 @@
 package com.sparrowsanta.real_estate_management_rest.standardJpa;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
 public interface AbstractBaseService<T extends AbstractBaseEntity, ID extends Serializable> {
+
+
     T save(T entity);
 
     List<T> findAll(); // you might want a generic Collection if u prefer
@@ -19,6 +23,8 @@ public interface AbstractBaseService<T extends AbstractBaseEntity, ID extends Se
 
     void deleteById(ID entityId);
 
+    //Entity save
+//    T savePD(T entity);
     // other methods u might need to be generic
 
 }

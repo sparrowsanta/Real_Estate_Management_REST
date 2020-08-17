@@ -1,5 +1,6 @@
 package com.sparrowsanta.real_estate_management_rest.entity;
 
+import com.sparrowsanta.real_estate_management_rest.flat.Flat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
