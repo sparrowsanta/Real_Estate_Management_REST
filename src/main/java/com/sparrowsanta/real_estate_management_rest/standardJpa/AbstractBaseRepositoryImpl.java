@@ -13,9 +13,10 @@ import java.util.Optional;
 public abstract class AbstractBaseRepositoryImpl<T extends AbstractBaseEntity, ID extends Serializable>
         implements AbstractBaseService<T, ID>{
 
+
     private AbstractBaseRepository<T, ID> abstractBaseRepository;
 
-    @Autowired
+
     public AbstractBaseRepositoryImpl(AbstractBaseRepository<T, ID> abstractBaseRepository) {
         this.abstractBaseRepository = abstractBaseRepository;
     }
@@ -44,6 +45,8 @@ public abstract class AbstractBaseRepositoryImpl<T extends AbstractBaseEntity, I
     @Override
     public T updateById(T entity, ID entityId) {
         Optional<T> optional = abstractBaseRepository.findById(entityId);
+        System.out.println("Zapisuje");
+
         if(optional.isPresent()){
             return (T) abstractBaseRepository.save(entity);
         }else{
@@ -60,5 +63,6 @@ public abstract class AbstractBaseRepositoryImpl<T extends AbstractBaseEntity, I
     public void deleteById(ID entityId) {
         abstractBaseRepository.deleteById(entityId);
     }
+
 
 }

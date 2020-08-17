@@ -1,5 +1,7 @@
-package com.sparrowsanta.real_estate_management_rest.entity;
+package com.sparrowsanta.real_estate_management_rest.flat;
 
+import com.sparrowsanta.real_estate_management_rest.entity.Meters;
+import com.sparrowsanta.real_estate_management_rest.entity.Room;
 import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;

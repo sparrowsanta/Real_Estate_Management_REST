@@ -1,6 +1,6 @@
 package com.sparrowsanta.real_estate_management_rest.controller;
 
-import com.sparrowsanta.real_estate_management_rest.entity.Flat;
+import com.sparrowsanta.real_estate_management_rest.flat.Flat;
 import com.sparrowsanta.real_estate_management_rest.entity.Room;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
