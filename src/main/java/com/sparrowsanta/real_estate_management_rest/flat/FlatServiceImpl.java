@@ -2,12 +2,15 @@ package com.sparrowsanta.real_estate_management_rest.flat;
 
 
 import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseRepositoryImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class FlatServiceImpl extends AbstractBaseRepositoryImpl<Flat, Long> implements FlatService{
+public class FlatServiceImpl extends AbstractBaseRepositoryImpl<Flat, Long> implements FlatService {
+
+    @Autowired
     private FlatRepository flatRepository;
 
     public FlatServiceImpl(FlatRepository flatRepository) {
@@ -16,10 +19,13 @@ public class FlatServiceImpl extends AbstractBaseRepositoryImpl<Flat, Long> impl
     // other specialized methods from the MyDomainService interface
 
 
-    @Override
-    public Flat myOwnSave(Flat flat) {
-        flatRepository.updateById();
+    public Flat saveFlat(Flat flat) {
+        flatRepository.myOwnFindBy("2");
         return flat;
+    }
+
+    public void saveTest(){
+        System.out.println("s");
     }
 
 }

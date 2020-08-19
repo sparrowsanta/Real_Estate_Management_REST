@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 
-@MappedSuperclass
+@MappedSuperclass //Dopytać o to
 public class AbstractBaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

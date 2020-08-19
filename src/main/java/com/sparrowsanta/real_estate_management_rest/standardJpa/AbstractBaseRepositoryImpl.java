@@ -23,7 +23,6 @@ public abstract class AbstractBaseRepositoryImpl<T extends AbstractBaseEntity, I
 
    @Override
     public T save(T entity) {
-       System.out.println("tutaj");
        return (T) abstractBaseRepository.save(entity);
     }
 
@@ -45,7 +44,7 @@ public abstract class AbstractBaseRepositoryImpl<T extends AbstractBaseEntity, I
     @Override
     public T updateById(T entity, ID entityId) {
         Optional<T> optional = abstractBaseRepository.findById(entityId);
-        System.out.println("Zapisuje");
+
 
         if(optional.isPresent()){
             return (T) abstractBaseRepository.save(entity);

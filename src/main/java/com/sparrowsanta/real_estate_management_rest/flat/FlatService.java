@@ -5,6 +5,8 @@ import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseServ
 
 public interface FlatService extends AbstractBaseService<Flat, Long> {
 
-    Flat myOwnSave(Flat flat);
+    Flat saveFlat(Flat flat);
+    void saveTest();
+
 
 }

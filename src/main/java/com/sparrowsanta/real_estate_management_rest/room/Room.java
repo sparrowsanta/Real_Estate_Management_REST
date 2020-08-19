@@ -1,6 +1,8 @@
-package com.sparrowsanta.real_estate_management_rest.entity;
+package com.sparrowsanta.real_estate_management_rest.room;
 
+import com.sparrowsanta.real_estate_management_rest.client.Client;
 import com.sparrowsanta.real_estate_management_rest.flat.Flat;
+import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -11,7 +13,8 @@ import java.util.Arrays;
 @Data
 @AllArgsConstructor
 @Entity
-public class Room {
+@Table(name = "room")
+public class Room extends AbstractBaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -24,6 +27,10 @@ public class Room {
     private int occupable;
     private double roomSquareMeters;
     private double expectedRentPrice;
+
+    @OneToOne
+    @JoinColumn(name = "client_id", unique = true)
+    private Client client;
 
 
     @AllArgsConstructor
