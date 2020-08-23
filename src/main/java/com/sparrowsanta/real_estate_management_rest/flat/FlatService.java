@@ -1,12 +1,28 @@
 package com.sparrowsanta.real_estate_management_rest.flat;
 
-import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
-public interface FlatService extends AbstractBaseService<Flat, Long> {
+@Service
+public class FlatService {
 
-    Flat saveFlat(Flat flat);
-    void saveTest();
+    private FlatRepository flatRepository;
 
+    @Autowired
+    public FlatService(FlatRepository flatRepository) {
+        this.flatRepository = flatRepository;
+    }
 
+    public Flat saveFlat(Flat flat) {
+        flatRepository.save(flat);
+        return flat;
+    }
+
+    public List<Flat> showFlats() {
+        List<Flat> flats = flatRepository.findAll();
+        return flats;
+    }
 }
