@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 @Transactional
 public abstract class AbstractBaseRepositoryImpl<T extends AbstractBaseEntity, ID extends Serializable>
-        implements AbstractBaseService<T, ID>{
+        implements AbstractBaseService<T, ID> {
 
 
     private AbstractBaseRepository<T, ID> abstractBaseRepository;
@@ -21,10 +21,9 @@ public abstract class AbstractBaseRepositoryImpl<T extends AbstractBaseEntity, I
         this.abstractBaseRepository = abstractBaseRepository;
     }
 
-   @Override
+    @Override
     public T save(T entity) {
-       System.out.println("tutaj");
-       return (T) abstractBaseRepository.save(entity);
+        return (T) abstractBaseRepository.save(entity);
     }
 
     @Override
@@ -45,11 +44,11 @@ public abstract class AbstractBaseRepositoryImpl<T extends AbstractBaseEntity, I
     @Override
     public T updateById(T entity, ID entityId) {
         Optional<T> optional = abstractBaseRepository.findById(entityId);
-        System.out.println("Zapisuje");
 
-        if(optional.isPresent()){
+
+        if (optional.isPresent()) {
             return (T) abstractBaseRepository.save(entity);
-        }else{
+        } else {
             return null;
         }
     }

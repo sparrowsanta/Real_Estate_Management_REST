@@ -1,7 +1,8 @@
 package com.sparrowsanta.real_estate_management_rest.flat;
 
-import com.sparrowsanta.real_estate_management_rest.flat.Flat;
+import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseEntity;
 import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseRepository;
+import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseRepositoryImpl;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 

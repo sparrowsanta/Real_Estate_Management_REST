@@ -1,19 +1,13 @@
 package com.sparrowsanta.real_estate_management_rest.flat;
 
 import com.sparrowsanta.real_estate_management_rest.entity.Meters;
-import com.sparrowsanta.real_estate_management_rest.entity.Room;
+import com.sparrowsanta.real_estate_management_rest.room.Room;
 import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import org.hibernate.validator.constraints.Range;
-
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +59,8 @@ public class Flat extends AbstractBaseEntity {
     @JoinColumn(name = "flatId")
     private List<Meters> meters = new ArrayList<>();
 
-//    private byte picUrl;
+    @Lob
+    private byte[] picUrl;
 
 
     public Flat() {
