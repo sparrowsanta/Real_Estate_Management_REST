@@ -23,6 +23,8 @@ public interface AbstractBaseService<T extends AbstractBaseEntity, ID extends Se
 
     void deleteById(ID entityId);
 
+    T getOne(ID entityId);
+
     //Entity save
 //    T savePD(T entity);
     // other methods u might need to be generic

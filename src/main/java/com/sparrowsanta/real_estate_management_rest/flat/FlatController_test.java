@@ -25,10 +25,10 @@ public class FlatController_test {
     @GetMapping("/getAllFlats")
     public List<Flat> getFlats() {
         Flat flat1 = new Flat(1, "Pierwsze", "Kraków", "Złota Podkowa", "5", "31-322", 2, null, 3, "Moje pierwsze mieszkanie", 34.4, 2010, 305000.00, 2000.0, null, null);
-        Flat flat = flatService.saveFlat(flat1);
-
-        return flatService.showFlats();
-
+//        Flat flat = flatService.saveFlat(flat1);
+//
+//        return flatService.showFlats();
+        return flatService.findAll();
     }
 
 
