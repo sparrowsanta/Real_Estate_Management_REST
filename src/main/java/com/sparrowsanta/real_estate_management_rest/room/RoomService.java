@@ -32,7 +32,7 @@ public class RoomService implements AbstractBaseService<Room, Long> {
     @Override
     public Optional<Room> findById(Long entityId) {
         Optional<Room> room = roomRepository.findById(entityId);
-        return room.empty();
+        return room;
     }
 
 
@@ -44,7 +44,13 @@ public class RoomService implements AbstractBaseService<Room, Long> {
 
     @Override
     public Room updateById(Room entity, Long entityId) {
-        return null;
+
+        Optional<Room> optional = roomRepository.findById(entityId);
+        if (optional.isPresent()) {
+            return roomRepository.save(entity);
+        } else {
+            return null;
+        }
     }
 
     @Override
