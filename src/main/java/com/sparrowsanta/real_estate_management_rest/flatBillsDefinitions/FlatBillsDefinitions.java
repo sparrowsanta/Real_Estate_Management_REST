@@ -1,11 +1,14 @@
-package com.sparrowsanta.real_estate_management_rest.entity;
+package com.sparrowsanta.real_estate_management_rest.flatBillsDefinitions;
 
+import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseEntity;
 import lombok.Data;
 
+import javax.persistence.Entity;
 import java.time.LocalDate;
 
 @Data
-public class FlatBillsDefinitions {
+@Entity
+public class FlatBillsDefinitions extends AbstractBaseEntity {
     private long id;
     private long flatId;
     private String billDescription;

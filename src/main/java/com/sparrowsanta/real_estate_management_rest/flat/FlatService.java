@@ -1,6 +1,6 @@
 package com.sparrowsanta.real_estate_management_rest.flat;
 
-import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseRepositoryImpl;
+import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,30 +11,30 @@ import java.util.Optional;
 public class FlatService {
 
     private FlatRepository flatRepository;
-    private AbstractBaseRepositoryImpl<Flat, Long> abstractBaseRepositoryImpl;
+//    private AbstractBaseRepositoryImpl<Flat, Long> abstractBaseRepositoryImpl;
 
     @Autowired
-    public FlatService(FlatRepository flatRepository, AbstractBaseRepositoryImpl abstractBaseRepository) {
+    public FlatService(FlatRepository flatRepository) {
         this.flatRepository = flatRepository;
-        this.abstractBaseRepositoryImpl = abstractBaseRepository;
+//        this.abstractBaseRepositoryImpl = abstractBaseRepositoryImpl;
     }
 
-    public Flat save(Flat entity) {
-        Flat flat = abstractBaseRepositoryImpl.update(entity);
+    public AbstractBaseEntity save(Flat entity) {
+        AbstractBaseEntity flat = flatRepository.save(entity);
         return flat;
     }
 
     public List<Flat> findAll() {
-        List flats = abstractBaseRepositoryImpl.findAll();
+        List flats = flatRepository.findAll();
         return flats;
     }
 
     public Optional<Flat> findById(Long entityId) {
-        Optional<Flat> optionalFlat = abstractBaseRepositoryImpl.findById(entityId);
+        Optional<Flat> optionalFlat = flatRepository.findById(entityId);
         return optionalFlat.empty();
     }
 
-    public Flat update(Flat entity) {
+/*    public Flat update(Flat entity) {
         Flat flat = abstractBaseRepositoryImpl.update(entity);
         return flat;
     }
@@ -52,6 +52,6 @@ public class FlatService {
 
     public void delete(Flat entity) {
         abstractBaseRepositoryImpl.delete(entity);
-    }
+    }*/
 
 }

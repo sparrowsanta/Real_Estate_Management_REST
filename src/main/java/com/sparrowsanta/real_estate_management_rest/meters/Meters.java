@@ -1,5 +1,6 @@
-package com.sparrowsanta.real_estate_management_rest.entity;
+package com.sparrowsanta.real_estate_management_rest.meters;
 
+import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -10,7 +11,7 @@ import java.util.Arrays;
 @Data
 @AllArgsConstructor
 @Entity
-public class Meters {
+public class Meters extends AbstractBaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;

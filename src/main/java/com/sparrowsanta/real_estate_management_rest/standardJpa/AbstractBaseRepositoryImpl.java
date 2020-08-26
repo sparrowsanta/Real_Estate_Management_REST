@@ -16,7 +16,7 @@ public abstract class AbstractBaseRepositoryImpl<T extends AbstractBaseEntity, I
 
     private AbstractBaseRepository<T, ID> abstractBaseRepository;
 
-
+    @Autowired
     public AbstractBaseRepositoryImpl(AbstractBaseRepository<T, ID> abstractBaseRepository) {
         this.abstractBaseRepository = abstractBaseRepository;
     }
