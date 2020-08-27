@@ -1,6 +1,7 @@
 package com.sparrowsanta.real_estate_management_rest.flat;
 
 import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseEntity;
+import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class FlatService {
+public class FlatService implements AbstractBaseService<Flat, Long> {
 
     private FlatRepository flatRepository;
 //    private AbstractBaseRepositoryImpl<Flat, Long> abstractBaseRepositoryImpl;
@@ -19,39 +20,52 @@ public class FlatService {
 //        this.abstractBaseRepositoryImpl = abstractBaseRepositoryImpl;
     }
 
-    public AbstractBaseEntity save(Flat entity) {
-        AbstractBaseEntity flat = flatRepository.save(entity);
-        return flat;
+
+    @Override
+    public Flat save(Flat entity) {
+        return flatRepository.save(entity);
     }
 
+    @Override
     public List<Flat> findAll() {
-        List flats = flatRepository.findAll();
-        return flats;
+        return flatRepository.findAll();
     }
 
+    @Override
     public Optional<Flat> findById(Long entityId) {
-        Optional<Flat> optionalFlat = flatRepository.findById(entityId);
-        return optionalFlat.empty();
+        return flatRepository.findById(entityId);
+
     }
 
-/*    public Flat update(Flat entity) {
-        Flat flat = abstractBaseRepositoryImpl.update(entity);
-        return flat;
+    @Override
+    public Flat update(Flat entity) {
+        return flatRepository.save(entity);
     }
 
+    @Override
     public Flat updateById(Flat entity, Long entityId) {
-        Flat flat = abstractBaseRepositoryImpl.updateById(entity, entityId);
-        return flat;
+        Optional<Flat> flatOptional = flatRepository.findById(entityId);
+        if (flatOptional.isPresent()) {
+            return flatRepository.save(entity);
+        } else {
+            return null;
+        }
     }
 
-
-    public Flat getOne(Long entityId) {
-        Flat flat = abstractBaseRepositoryImpl.getOne(entityId);
-        return flat;
-    }
-
+    @Override
     public void delete(Flat entity) {
-        abstractBaseRepositoryImpl.delete(entity);
-    }*/
+        flatRepository.delete(entity);
+    }
+
+    @Override
+    public void deleteById(Long entityId) {
+        flatRepository.deleteById(entityId);
+    }
+
+    @Override
+    public Flat getOne(Long entityId) {
+        return flatRepository.getOne(entityId);
+    }
+
 
 }
