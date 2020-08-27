@@ -1,8 +1,6 @@
 package com.sparrowsanta.real_estate_management_rest.meters;
 
 
-import com.sparrowsanta.real_estate_management_rest.metersHistory.MetersHistory;
-import com.sparrowsanta.real_estate_management_rest.metersHistory.MetersHistoryRepository;
 import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +12,7 @@ import java.util.Optional;
 public class MetersService implements AbstractBaseService<Meters, Long> {
 
 
-    private MetersRepository metersRepository;
+    private final MetersRepository metersRepository;
 
     @Autowired
     public MetersService(MetersRepository metersRepository) {
@@ -23,26 +21,22 @@ public class MetersService implements AbstractBaseService<Meters, Long> {
 
     @Override
     public Meters save(Meters entity) {
-        Meters meters = metersRepository.save(entity);
-        return meters;
+        return metersRepository.save(entity);
     }
 
     @Override
     public List<Meters> findAll() {
-        List<Meters> meters = metersRepository.findAll();
-        return meters;
+        return metersRepository.findAll();
     }
 
     @Override
     public Optional<Meters> findById(Long entityId) {
-        Optional<Meters> metersOptional = metersRepository.findById(entityId);
-        return metersOptional;
+        return metersRepository.findById(entityId);
     }
 
     @Override
     public Meters update(Meters entity) {
-        Meters meters = metersRepository.save(entity);
-        return meters;
+        return metersRepository.save(entity);
     }
 
     @Override
@@ -67,7 +61,6 @@ public class MetersService implements AbstractBaseService<Meters, Long> {
 
     @Override
     public Meters getOne(Long entityId) {
-        Meters meters = metersRepository.getOne(entityId);
-        return meters;
+        return metersRepository.getOne(entityId);
     }
 }
