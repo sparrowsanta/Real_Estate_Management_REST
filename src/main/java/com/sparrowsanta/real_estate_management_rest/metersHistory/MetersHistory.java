@@ -5,14 +5,16 @@ import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseEnti
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Data
 @Entity
 @AllArgsConstructor
 public class MetersHistory extends AbstractBaseEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @ManyToOne
     private Meters meter;

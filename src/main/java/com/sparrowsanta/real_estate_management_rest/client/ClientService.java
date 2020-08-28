@@ -3,6 +3,7 @@ package com.sparrowsanta.real_estate_management_rest.client;
 import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,15 +19,15 @@ public class ClientService implements AbstractBaseService<Client, Long> {
         this.clientRepository = clientRepository;
     }
 
-    public List<ClientForRoomView> showClientForRentView() {
-        List<ClientForRoomView> clientForRoomView = clientRepository.getClientById(1L);
-        return clientForRoomView;
-    }
+//    public List<ClientForRoomView> showClientForRentView() {
+//        List<ClientForRoomView> clientForRoomView = clientRepository.getClientById2(1L);
+//        return clientForRoomView;
+//    }
 
     @Override
     public Client save(Client entity) {
-        Client client = clientRepository.save(entity);
-        return client;
+
+        return clientRepository.save(entity);
     }
 
     @Override

@@ -36,11 +36,11 @@ public class FlatController {
     }
 
 
-    @GetMapping("/projection")
-    @ResponseBody
-    public List<ClientForRoomView> test() {
-
-        List<ClientForRoomView> clientForRoomViews = clientService.showClientForRentView();
-        return clientForRoomViews;
-    }
+//    @GetMapping("/projection")
+//    @ResponseBody
+//    public List<ClientForRoomView> test() {
+//
+//        List<ClientForRoomView> clientForRoomViews = clientService.showClientForRentView();
+//        return clientForRoomViews;
+//    }
 }
