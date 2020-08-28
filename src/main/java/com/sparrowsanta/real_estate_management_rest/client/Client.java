@@ -3,6 +3,8 @@ package com.sparrowsanta.real_estate_management_rest.client;
 import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -15,9 +17,9 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @Table(name = "client")
 public class Client extends AbstractBaseEntity {
-/*    @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;*/
+    private long id;
     @NotNull
     @Size(min = 2, max = 30)
     private String firstName;
@@ -30,9 +32,11 @@ public class Client extends AbstractBaseEntity {
     private String email;
     private String city;
     private String street;
+    private Long telNumber;
 
 //    private String flatNumber;
 
     public Client() {
     }
+
 }
