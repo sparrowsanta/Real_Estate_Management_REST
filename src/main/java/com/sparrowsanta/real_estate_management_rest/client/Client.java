@@ -32,10 +32,11 @@ public class Client extends AbstractBaseEntity {
     private String email;
     private String city;
     private String street;
+    private Long telNumber;
 
 //    private String flatNumber;
 
     public Client() {
     }
-    
+
 }
