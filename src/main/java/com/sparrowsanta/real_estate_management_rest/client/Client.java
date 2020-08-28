@@ -37,9 +37,5 @@ public class Client extends AbstractBaseEntity {
 
     public Client() {
     }
-
-    public Client(long id, String firstName) {
-        this.id = id;
-        this.firstName = firstName;
-    }
+    
 }
