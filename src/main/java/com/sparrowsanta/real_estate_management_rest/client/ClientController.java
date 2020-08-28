@@ -2,11 +2,9 @@ package com.sparrowsanta.real_estate_management_rest.client;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.sparrowsanta.real_estate_management_rest.utils.HibernateProxyTypeAdapter;
-import org.javers.hibernate.HibernateUnproxyObjectAccessHook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,22 +16,17 @@ public class ClientController {
     @Autowired
     private ClientService clientService;
 
-    @PostMapping(value = "/addClient", produces = "text/plain;charset=UTF-8")
-    @ResponseBody
-    public String saveClient(@RequestBody Client client) {
-        clientService.save(client);
-        return new Gson().toJson("OK");
+    @PostMapping(value = "/addClient", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Client saveClient(@RequestBody Client client) {
+        return clientService.save(client);
     }
 
-    @PutMapping(value = "/addClient/{id}", produces = "text/plain;charset=UTF-8")
-    @ResponseBody
-    public String editClient(@PathVariable(name = "id") long id, @RequestBody Client data) {
-        clientService.updateById(data, id);
-        return new Gson().toJson("OK");
+    @PostMapping(value = "/addClient/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Client editClient(@PathVariable(name = "id") long id, @RequestBody Client data) {
+        return clientService.updateById(data, id);
     }
 
-    @GetMapping(value = "/showClientsAll", produces = "text/plain;charset=UTF-8")
-    @ResponseBody
+    @GetMapping(value = "/showClientsAll", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Client> showAllClients() {
         List<Client> clients = clientService.findAll();
         return clients;
@@ -47,15 +40,12 @@ public class ClientController {
     }
 
 
-    @GetMapping(value = "/getClient/{id}", produces = "text/plain;charset=UTF-8")
-    @ResponseBody
+    @GetMapping(value = "/getClient/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String getClient(@PathVariable(name = "id") long id) {
-        Client client = clientService.getOne(id);
         GsonBuilder b = new GsonBuilder();
-
         b.registerTypeAdapterFactory(HibernateProxyTypeAdapter.FACTORY);
         Gson gson = b.create();
-        return  gson.toJson(client);
+        return gson.toJson(clientService.getOne(id));
     }
 
 

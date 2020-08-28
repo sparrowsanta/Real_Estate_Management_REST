@@ -21,6 +21,7 @@ public abstract class AbstractBaseRepositoryImpl<T extends AbstractBaseEntity, I
         this.abstractBaseRepository = abstractBaseRepository;
     }
 
+
     @Override
     public T save(T entity) {
         return (T) abstractBaseRepository.save(entity);
@@ -44,8 +45,6 @@ public abstract class AbstractBaseRepositoryImpl<T extends AbstractBaseEntity, I
     @Override
     public T updateById(T entity, ID entityId) {
         Optional<T> optional = abstractBaseRepository.findById(entityId);
-
-
         if (optional.isPresent()) {
             return (T) abstractBaseRepository.save(entity);
         } else {
