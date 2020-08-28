@@ -16,8 +16,10 @@ public class MetersController {
 
 
     @GetMapping(value = "/getAll/{flatId}", produces = "text/plain;charset=UTF-8")
-    public List<Meters> getMeters(@PathVariable(name = "flatId") long flatId) {
-        return metersService.findAllMetersByFlatId(flatId);
+    public List<Meters> getMeters(@PathVariable(name = "flatId") Long flatId) {
+        System.out.println(metersService.findAllMetersByFlatId(flatId));
+//        return metersService.findAllMetersByFlatId(flatId);
+        return null;
     }
 
     @GetMapping(value = "/{meterId}", produces = "text/plain;charset=UTF-8")

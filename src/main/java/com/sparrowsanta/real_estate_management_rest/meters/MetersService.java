@@ -64,7 +64,7 @@ public class MetersService implements AbstractBaseService<Meters, Long> {
         return metersRepository.getOne(entityId);
     }
 
-    public List<Meters> findAllMetersByFlatId(long flatId){
+    public List<Meters> findAllMetersByFlatId(Long flatId){
         return metersRepository.findAllByFlatId(flatId);
     }
 }

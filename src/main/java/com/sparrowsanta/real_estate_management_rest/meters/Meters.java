@@ -5,6 +5,7 @@ import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseEnti
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Data
+@Getter @Setter
 @AllArgsConstructor
 @Entity
 public class Meters extends AbstractBaseEntity {
