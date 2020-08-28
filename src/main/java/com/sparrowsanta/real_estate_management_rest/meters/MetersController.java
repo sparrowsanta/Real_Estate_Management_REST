@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,8 +17,9 @@ public class MetersController {
 
 
     @GetMapping(value = "/getAll/{flatId}", produces = "text/plain;charset=UTF-8")
-    public List<Meters> getMeters(@PathVariable(name = "flatId") long flatId) {
-        return metersService.findAllMetersByFlatId(flatId);
+    public List<Meters> getMeters(@PathVariable(name = "flatId") Long flatId) {
+        List<Meters> result = metersService.findAllMetersByFlatId(flatId);
+        return result == null ? new ArrayList<Meters>() : result;
     }
 
     @GetMapping(value = "/{meterId}", produces = "text/plain;charset=UTF-8")
@@ -71,7 +73,6 @@ public class MetersController {
 //
 
 
-
 //    }
 
 //    @GetMapping(value = "/history/{meterId}", produces = "text/plain;charset=UTF-8")
@@ -93,9 +94,6 @@ public class MetersController {
 //        testData.addReading(reading);
 //        return new Gson().toJson("Ok");
 //    }
-
-
-
 
 
 }
