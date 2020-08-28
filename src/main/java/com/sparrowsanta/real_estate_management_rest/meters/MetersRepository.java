@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface MetersRepository extends AbstractBaseRepository<Meters, Long> {
 
-    List<Meters> findAllByFlatId (long flatId);
+    List<Meters> findAllByFlatId (Long flatId);
 }
