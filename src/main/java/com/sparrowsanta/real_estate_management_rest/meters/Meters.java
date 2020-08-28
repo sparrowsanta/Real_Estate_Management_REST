@@ -1,19 +1,16 @@
 package com.sparrowsanta.real_estate_management_rest.meters;
 
-import com.sparrowsanta.real_estate_management_rest.metersHistory.MetersHistory;
 import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseEntity;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-@Getter @Setter
+@Getter
+@Setter
 @AllArgsConstructor
 @Entity
 public class Meters extends AbstractBaseEntity {
@@ -21,15 +18,13 @@ public class Meters extends AbstractBaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private long flatId;
-    @OneToMany(mappedBy = "meter",cascade = CascadeType.REMOVE)
-    private List<MetersHistory> metersHistory = new ArrayList<>();
     private MeterType meterType;
     private String description;
     private LocalDateTime created;
     private LocalDateTime updated;
 
-    @AllArgsConstructor
     @Getter
+    @AllArgsConstructor
     public enum MeterType {
         ELECTRICITY(1),
         WATER_COLD(2),
@@ -49,7 +44,6 @@ public class Meters extends AbstractBaseEntity {
 
 
     public Meters(MeterType meterType, String description) {
-
         this.meterType = meterType;
         this.description = description;
     }

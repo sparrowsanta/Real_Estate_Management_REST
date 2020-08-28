@@ -11,18 +11,17 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 
-@Getter
-@Setter
 @Entity
 @AllArgsConstructor
+@Getter
+@Setter
 public class MetersHistory extends AbstractBaseEntity {
     private long id;
-    @ManyToOne
-    private Meters meter;
+    private long meterId;
     private LocalDate meterReadingDate;
     private double readingValue;
 
     public MetersHistory() {
-
     }
+
 }

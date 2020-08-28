@@ -66,4 +66,8 @@ public class MetersHistoryService implements AbstractBaseService<MetersHistory, 
     public MetersHistory getOne(Long entityId) {
         return null;
     }
+
+    public List<MetersHistory> findRedingsHistoryByMeterId (Long meterId){
+        return metersHistoryRepository.findAllByMeterId(meterId);
+    }
 }

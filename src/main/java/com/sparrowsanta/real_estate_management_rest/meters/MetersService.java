@@ -1,6 +1,7 @@
 package com.sparrowsanta.real_estate_management_rest.meters;
 
 
+import com.sparrowsanta.real_estate_management_rest.flat.FlatRepository;
 import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,10 +14,12 @@ public class MetersService implements AbstractBaseService<Meters, Long> {
 
 
     private final MetersRepository metersRepository;
+    private final FlatRepository flatRepository;
 
     @Autowired
-    public MetersService(MetersRepository metersRepository) {
+    public MetersService(MetersRepository metersRepository, FlatRepository flatRepository) {
         this.metersRepository = metersRepository;
+        this.flatRepository = flatRepository;
     }
 
     @Override
@@ -64,7 +67,8 @@ public class MetersService implements AbstractBaseService<Meters, Long> {
         return metersRepository.getOne(entityId);
     }
 
-    public List<Meters> findAllMetersByFlatId(Long flatId){
+    public List<Meters> findAllMetersByFlatId(Long flatId) {
+
         return metersRepository.findAllByFlatId(flatId);
     }
 }
