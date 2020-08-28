@@ -1,5 +1,7 @@
 package com.sparrowsanta.real_estate_management_rest.flat;
 
+import com.google.gson.Gson;
+import com.sparrowsanta.real_estate_management_rest.client.Client;
 import com.sparrowsanta.real_estate_management_rest.client.ClientForRoomView;
 import com.sparrowsanta.real_estate_management_rest.client.ClientService;
 import lombok.RequiredArgsConstructor;
@@ -22,17 +24,24 @@ public class FlatController {
     private ClientService clientService;
 
 
-    @GetMapping("/allFlats")
+    @GetMapping("/getAllFlats")
     public List<Flat> getFlats() {
         return flatService.findAll();
     }
 
-    @PostMapping(value = "/addFlat", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public Flat addFlat(@RequestParam(value = "file") MultipartFile file, MultipartHttpServletRequest mrequest) {
-        System.out.println(mrequest);
+    @PostMapping(value = "/addFlat", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Flat addFlat(@RequestBody Flat flatData) {
+        System.out.println(flatData);
+        flatService.save(flatData);
 
-        Flat flat = new Flat();
-        return flatService.save(flat);
+
+ /*       String stringOfRooms = flatData.getParameter("roomsNumber");
+        String[] tableOfRooms = stringOfRooms.split("},\\{");
+        String[] tableOfRoomsReplaced = Arrays.stream(tableOfRooms)
+                .map(s -> s.replaceAll("(\\[)|(\\])|(\\{)|(\\})", ""))
+                .toArray(size -> new String[size]);
+        Room room1 = gson.fromJson("{" + tableOfRoomsReplaced[1] + "}", Room.class);*/
+        return flatService.save(flatData);
     }
 
 
