@@ -10,21 +10,20 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Getter
-@Setter
 @Entity
 @AllArgsConstructor
+@Getter
+@Setter
 public class MetersHistory extends AbstractBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @ManyToOne
-    private Meters meter;
+    private long meterId;
     private LocalDate meterReadingDate;
     private double readingValue;
 
     public MetersHistory() {
-
     }
+
 }

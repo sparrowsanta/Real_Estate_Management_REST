@@ -1,46 +1,48 @@
 package com.sparrowsanta.real_estate_management_rest.meters;
 
+import com.sparrowsanta.real_estate_management_rest.metersHistory.MetersHistory;
+import com.sparrowsanta.real_estate_management_rest.metersHistory.MetersHistoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("meters")
 @RequiredArgsConstructor
 public class MetersController {
-    //standardJpa package
+
     @Autowired
     private MetersService metersService;
+    @Autowired
+    private MetersHistoryService metersHistoryService;
 
 
-    @GetMapping(value = "/getAll/{flatId}", produces = "text/plain;charset=UTF-8")
+    @GetMapping(value = "/getAll/{flatId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Meters> getMeters(@PathVariable(name = "flatId") Long flatId) {
-        List<Meters> result = metersService.findAllMetersByFlatId(flatId);
-        return result == null ? new ArrayList<Meters>() : result;
+        return metersService.findAllMetersByFlatId(flatId);
     }
 
-    @GetMapping(value = "/{meterId}", produces = "text/plain;charset=UTF-8")
+    @GetMapping(value = "/{meterId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Meters getMeterById(@PathVariable(name = "meterId") long meterId) {
-
         return metersService.findById(meterId).orElse(null);
     }
 
-    @DeleteMapping(value = "/delete/{meterId}", produces = "text/plain;charset=UTF-8")
+    @DeleteMapping(value = "/delete/{meterId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String delMeter(@PathVariable(name = "meterId") long meterId) {
         metersService.delete(metersService.findById(meterId).orElse(null));
         return "Ok";
     }
 
-    @PutMapping(value = "/edit/{meterId}", produces = "text/plain;charset=UTF-8")
+    @PutMapping(value = "/edit/{meterId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String editMeter(@RequestBody Meters meter) {
         metersService.save((meter));
         return "Ok";
     }
 
-    @PostMapping(value = "/add", produces = "text/plain;charset=UTF-8")
+    @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
     public String addMeter(@RequestBody Meters meter) {
         metersService.save(meter);
         return "Ok";
@@ -48,52 +50,37 @@ public class MetersController {
     }
 
 
-//    @GetMapping(value = "/reading/{readingId}", produces = "text/plain;charset=UTF-8")
-//    public String getMeterReadingById(@PathVariable(name = "readingId") long readingId) {
-//        MetersHistory reading = testData.getMetersHistory().stream()
-//                .filter(m -> m.getId() == readingId)
-//                .findFirst()
-//                .orElse(null);
-//
-//        return new GsonBuilder()
-//                .setDateFormat("MM-dd-yyyy")
-//                .create()
-//                .toJson(reading);
-//
-//    }
-//
+    @GetMapping(value = "/reading/{readingId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public MetersHistory getMeterReadingById(@PathVariable(name = "readingId") long readingId) {
+        return metersHistoryService.findById(readingId).get();
+
+    }
+
+    @GetMapping(value = "/history/{meterId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<MetersHistory> getMeterHistory(@PathVariable(name = "meterId") long meterId) {
+
+        return metersHistoryService.findRedingsHistoryByMeterId(meterId);
+    }
 
 
-//
-//    @PutMapping(value = "/reading/edit/{readingId}", produces = "text/plain;charset=UTF-8")
-//    public String editMeterReading(@RequestBody String meter) {
-//        testData.editReading(meter);
-//        return new Gson().toJson("Ok");
-//    }
-//
+    @PutMapping(value = "/reading/edit/{readingId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String editMeterReading(@RequestBody MetersHistory metersHistory) {
+        metersHistoryService.save(metersHistory);
+        return "Ok";
+    }
 
 
-//    }
+    @DeleteMapping(value = "/history/delete/{readingId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String delMeterReading(@PathVariable(name = "readingId") long readingId) {
+        metersHistoryService.delete(metersHistoryService.findById(readingId).get());
+        return "Ok";
+    }
 
-//    @GetMapping(value = "/history/{meterId}", produces = "text/plain;charset=UTF-8")
-//    public String getMeterHistory(@PathVariable(name = "meterId") long meterId) {
-//
-//        return new Gson().toJson(testData.getMetersHistory().stream().filter(x -> x.getMeterId() == meterId)
-//                .sorted((x, y) -> y.getMeterReadingDate().compareTo(x.getMeterReadingDate()))
-//                .collect(Collectors.toList()));
-//    }
-//
-//    @DeleteMapping(value = "/history/delete/{readingId}", produces = "text/plain;charset=UTF-8")
-//    public String delMeterReading(@PathVariable(name = "readingId") long readingId) {
-//        testData.deleteMeterReading(readingId);
-//        return new Gson().toJson("Ok");
-//    }
-//
-//    @PostMapping(value = "/reading/add", produces = "text/plain;charset=UTF-8")
-//    public String addMeterReading(@RequestBody String reading) {
-//        testData.addReading(reading);
-//        return new Gson().toJson("Ok");
-//    }
+    @PostMapping(value = "/reading/add", produces = "text/plain;charset=UTF-8")
+    public String addMeterReading(@RequestBody MetersHistory reading) {
+        metersHistoryService.save(reading);
+        return "Ok";
+    }
 
 
 }
