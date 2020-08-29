@@ -59,7 +59,7 @@ public class MetersController {
     @GetMapping(value = "/history/{meterId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<MetersHistory> getMeterHistory(@PathVariable(name = "meterId") long meterId) {
 
-        return metersHistoryService.findRedingsHistoryByMeterId(meterId);
+        return metersHistoryService.findReadingsHistoryByMeterId(meterId);
     }
 
 
