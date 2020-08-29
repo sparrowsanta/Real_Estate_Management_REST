@@ -7,5 +7,5 @@ import java.util.List;
 
 @Repository
 public interface MetersHistoryRepository extends AbstractBaseRepository<MetersHistory, Long> {
-    List<MetersHistory> findAllByMeterIdOOrderByMeterReadingDateDesc (Long meterId);
+    List<MetersHistory> findAllByMeterIdOrderByMeterReadingDateDesc (Long meterId);
 }

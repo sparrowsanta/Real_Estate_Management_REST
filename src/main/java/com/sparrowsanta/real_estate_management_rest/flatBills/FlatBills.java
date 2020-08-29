@@ -26,4 +26,7 @@ public class FlatBills extends AbstractBaseEntity {
     private String description;
     private String currency;
     private LocalDate paymentDate;
+
+    public FlatBills() {
+    }
 }
