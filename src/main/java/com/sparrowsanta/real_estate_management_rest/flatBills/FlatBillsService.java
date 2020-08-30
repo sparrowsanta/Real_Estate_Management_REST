@@ -68,9 +68,13 @@ public class FlatBillsService implements AbstractBaseService<FlatBills, Long> {
         return flatBills;
     }
 
-    public List<FlatBills> getBillsByFlatIdAndFilter(Long flatId, String filter){
+    public List<FlatBills> getBillsByFlatIdAndFilter(Long flatId, String filter) {
         return filter.equals("all") ? flatBillsRepository.findAllByFlatId(flatId) :
                 flatBillsRepository.findAllByPaid(filter.equals("paid"));
+    }
+
+    public FlatBills getLastPaymentByBillDefinitionId(Long billDefinitionId) {
+        return flatBillsRepository.findFirstByBillDefinitionIdOrderByPaymentDateDesc(billDefinitionId);
     }
 
 }

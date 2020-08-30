@@ -22,7 +22,7 @@ public class FlatBills extends AbstractBaseEntity {
     private long billDefinitionId;
     private double amount;
     private boolean paid;
-    private boolean income;
+    private String incomeOutcome;
     private String description;
     private String currency;
     private LocalDate paymentDate;

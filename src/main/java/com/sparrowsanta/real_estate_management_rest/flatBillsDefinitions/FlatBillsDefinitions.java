@@ -22,4 +22,5 @@ public class FlatBillsDefinitions extends AbstractBaseEntity {
     private String currency;
     private int billFrequencyInMonths;
     private int paymentTillDayOfMonth;
+    private String incomeOutcome;
 }
