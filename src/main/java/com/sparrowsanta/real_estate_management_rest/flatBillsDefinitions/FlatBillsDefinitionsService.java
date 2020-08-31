@@ -1,8 +1,6 @@
 package com.sparrowsanta.real_estate_management_rest.flatBillsDefinitions;
 
 
-import com.sparrowsanta.real_estate_management_rest.flatBills.FlatBills;
-import com.sparrowsanta.real_estate_management_rest.rent.Rent;
 import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,6 +68,11 @@ public class FlatBillsDefinitionsService implements AbstractBaseService<FlatBill
     public FlatBillsDefinitions getOne(Long entityId) {
         FlatBillsDefinitions flatBillsDefinitions = flatBillsDefinitionsRepository.getOne(entityId);
         return flatBillsDefinitions;
+    }
+
+    public List<FlatBillsDefinitions> findAllByFlatId(Long flatId) {
+        return flatBillsDefinitionsRepository.findAllByFlatId(flatId);
+
     }
 
 }
