@@ -12,7 +12,7 @@ import java.util.Optional;
 public class ClientService implements AbstractBaseService<Client, Long> {
 
 
-    private ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
 
     @Autowired
     public ClientService(ClientRepository clientRepository) {

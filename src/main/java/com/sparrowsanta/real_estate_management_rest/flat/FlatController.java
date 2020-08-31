@@ -30,18 +30,10 @@ public class FlatController {
     }
 
     @PostMapping(value = "/addFlat", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Flat addFlat(@RequestBody Flat flatData) {
+    public Long addFlat(@RequestBody Flat flatData) {
         System.out.println(flatData);
-        flatService.save(flatData);
-
-
- /*       String stringOfRooms = flatData.getParameter("roomsNumber");
-        String[] tableOfRooms = stringOfRooms.split("},\\{");
-        String[] tableOfRoomsReplaced = Arrays.stream(tableOfRooms)
-                .map(s -> s.replaceAll("(\\[)|(\\])|(\\{)|(\\})", ""))
-                .toArray(size -> new String[size]);
-        Room room1 = gson.fromJson("{" + tableOfRoomsReplaced[1] + "}", Room.class);*/
-        return flatService.save(flatData);
+        Flat flat = flatService.save(flatData);
+        return flat.getId();
     }
 
 

@@ -9,6 +9,7 @@ import lombok.Getter;
 
 import javax.persistence.*;
 import java.util.Arrays;
+import java.util.HashSet;
 
 @Data
 @AllArgsConstructor
@@ -18,15 +19,16 @@ public class Room extends AbstractBaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
-    @ManyToOne
-    private Flat flat;
-
-    private RoomType roomType;
     private String description;
-    private int occupable;
     private double roomSquareMeters;
     private double expectedRentPrice;
+    private RoomType roomType;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "flatId")
+    private Flat flat;
+
+    private boolean occupable;
 
     @OneToOne
     @JoinColumn(name = "client_id", unique = true)
@@ -36,23 +38,25 @@ public class Room extends AbstractBaseEntity {
     @AllArgsConstructor
     @Getter
     public enum RoomType {
-        ROOM(1),
-        BATHROOM(2),
-        TOILET(3),
-        KITCHEN(4),
-        HALL(5),
-        BALCONY(6),
-        GARDEN(7),
-        GARAGE(8),
-        BASEMENT(9);
+        ROOM,
+        BATHROOM,
+        TOILET,
+        KITCHEN,
+        HALL,
+        BALCONY,
+        GARDEN,
+        GARAGE,
+        BASEMENT;
 
-        int value;
 
-        public static RoomType valueOf(int value) {
-            return Arrays.stream(values())
-                    .filter(roomType -> roomType.value == value)
-                    .findFirst()
-                    .orElse(null);
+        public static HashSet<String> getStatuses() {
+            HashSet<String> statuses = new HashSet<String>();
+
+            for (RoomType s : RoomType.values()) {
+                statuses.add(s.name());
+            }
+            return statuses;
+
         }
     }
 
@@ -60,7 +64,7 @@ public class Room extends AbstractBaseEntity {
 
     }
 
-    //Testowy
+/*    //Testowy
     public Room(long id, String description, double roomSquareMeters, double expectedRentPrice, RoomType roomType) {
         this.id = id;
         this.roomType = roomType;
@@ -76,7 +80,7 @@ public class Room extends AbstractBaseEntity {
         this.roomSquareMeters = roomSquareMeters;
         this.expectedRentPrice = expectedRentPrice;
         this.occupable = occupable;
-    }
+    }*/
 
 }
 

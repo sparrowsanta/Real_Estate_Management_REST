@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 public class FlatService implements AbstractBaseService<Flat, Long> {
 
-    private FlatRepository flatRepository;
+    private final FlatRepository flatRepository;
 //    private AbstractBaseRepositoryImpl<Flat, Long> abstractBaseRepositoryImpl;
 
     @Autowired
