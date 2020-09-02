@@ -21,9 +21,9 @@ public class ClientController {
         return clientService.save(client);
     }
 
-    @PostMapping(value = "/addClient/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/addClient/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Client editClient(@PathVariable(name = "id") long id, @RequestBody Client data) {
-        return clientService.updateById(data, id);
+        return clientService.update(data);
     }
 
     @GetMapping(value = "/showClientsAll", produces = MediaType.APPLICATION_JSON_VALUE)

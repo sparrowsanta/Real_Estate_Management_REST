@@ -2,10 +2,12 @@ package com.sparrowsanta.real_estate_management_rest.room;
 
 import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class RoomService implements AbstractBaseService<Room, Long> {
 
     private RoomRepository roomRepository;
@@ -71,4 +73,13 @@ public class RoomService implements AbstractBaseService<Room, Long> {
         return room;
     }
 
+
+    public List<Room> findAllByFlatId(long flatId){
+        return roomRepository.findAllByFlatId(flatId);
+    }
+
+    public byte[] picUrlById(long roomId){
+        byte[] bytes = roomRepository.picUrlById(roomId);
+        return bytes;
+    }
 }

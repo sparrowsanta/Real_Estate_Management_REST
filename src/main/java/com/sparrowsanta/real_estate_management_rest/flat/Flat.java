@@ -1,10 +1,12 @@
 package com.sparrowsanta.real_estate_management_rest.flat;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sparrowsanta.real_estate_management_rest.meters.Meters;
 import com.sparrowsanta.real_estate_management_rest.room.Room;
 import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseEntity;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -12,7 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @Table(name = "flat")
 public class Flat extends AbstractBaseEntity {
@@ -38,7 +41,7 @@ public class Flat extends AbstractBaseEntity {
     @Column(name = "rooms_number")
     private int roomsNumber;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "flat", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Room> rooms = new ArrayList<>();
 
     @Column(name = "floor_number")
@@ -60,6 +63,7 @@ public class Flat extends AbstractBaseEntity {
     private List<Meters> meters = new ArrayList<>();
 
     @Lob
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private byte[] picUrl;
 
 
