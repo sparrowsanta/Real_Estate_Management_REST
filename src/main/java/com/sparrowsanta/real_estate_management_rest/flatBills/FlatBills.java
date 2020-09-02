@@ -19,10 +19,11 @@ public class FlatBills extends AbstractBaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private long flatId;
+    private long roomId;
     private long billDefinitionId;
     private double amount;
     private boolean paid;
-    private boolean income;
+    private String incomeOutcome;
     private String description;
     private String currency;
     private LocalDate paymentDate;

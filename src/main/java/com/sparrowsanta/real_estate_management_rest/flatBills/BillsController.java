@@ -5,10 +5,7 @@ import com.sparrowsanta.real_estate_management_rest.flatBillsDefinitions.FlatBil
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,10 +30,36 @@ public class BillsController {
         return flatBillsDefinitionsService.findById(billId).get();
     }
 
-    @GetMapping(value = "/payment/all/{flatId}/{filter}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/payment/all/{flatId}/{paidFilter}/{typeFilter}/{dateFromFilter}/{dateToFilter}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<FlatBills> getPaymentsByFlatId(@PathVariable(name = "flatId") long flatId,
-                                               @PathVariable(name = "filter") String filter) {
-        return flatBillsService.getBillsByFlatIdAndFilter(flatId, filter);
+                                               @PathVariable(name = "paidFilter") String paidFilter,
+                                               @PathVariable(name = "typeFilter") String typeFilter,
+                                               @PathVariable(name = "dateFromFilter") String dateFromFilter,
+                                               @PathVariable(name = "dateToFilter") String dateToFilter) {
+        return flatBillsService.getBillsByFlatIdAndFilter(flatId, paidFilter, typeFilter, dateFromFilter, dateToFilter);
+    }
+
+    @GetMapping(value = "/payment/{paymentId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public FlatBills getPayment(@PathVariable(name = "paymentId") long paymentId) {
+        return flatBillsService.findById(paymentId).get();
+    }
+
+    @PostMapping(value = "/payment/add", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String addNewPayment(@RequestBody FlatBills payment) {
+        flatBillsService.save(payment);
+        return "Ok";
+    }
+
+    @PutMapping(value = "/payment/edit/{paymentId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String editMeterReading(@RequestBody FlatBills payment) {
+        flatBillsService.save(payment);
+        return "Ok";
+    }
+
+    @DeleteMapping(value = "/payment/delete/{paymentId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String delPayment(@PathVariable(name = "paymentId") long paymentId) {
+        flatBillsService.delete(flatBillsService.findById(paymentId).get());
+        return "Ok";
     }
 
 

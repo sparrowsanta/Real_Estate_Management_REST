@@ -8,7 +8,10 @@ import java.util.List;
 @Repository
 public interface FlatBillsRepository extends AbstractBaseRepository<FlatBills, Long> {
 
-    List<FlatBills> findAllByFlatId (Long flatId);
-    List<FlatBills> findAllByPaid (boolean paid);
+    List<FlatBills> findAllByFlatIdOrderByPaymentDateDesc(Long flatId);
+
+    List<FlatBills> findAllByPaidOrderByPaymentDateDesc(boolean paid);
+
+    FlatBills findFirstByBillDefinitionIdOrderByPaymentDateDesc(Long billDefinitionId);
 
 }
