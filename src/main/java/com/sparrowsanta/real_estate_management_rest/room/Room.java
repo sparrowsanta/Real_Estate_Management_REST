@@ -1,14 +1,15 @@
 package com.sparrowsanta.real_estate_management_rest.room;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sparrowsanta.real_estate_management_rest.client.Client;
 import com.sparrowsanta.real_estate_management_rest.flat.Flat;
 import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Arrays;
+import java.util.HashSet;
 
 @Data
 @AllArgsConstructor
@@ -18,15 +19,18 @@ public class Room extends AbstractBaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
-    @ManyToOne
-    private Flat flat;
-
-    private RoomType roomType;
     private String description;
-    private int occupable;
     private double roomSquareMeters;
     private double expectedRentPrice;
+    private RoomType roomType;
+    @Lob
+    private byte[] picUrl;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Flat flat;
+
+    private boolean occupiable;
 
     @OneToOne
     @JoinColumn(name = "client_id", unique = true)
@@ -36,23 +40,25 @@ public class Room extends AbstractBaseEntity {
     @AllArgsConstructor
     @Getter
     public enum RoomType {
-        ROOM(1),
-        BATHROOM(2),
-        TOILET(3),
-        KITCHEN(4),
-        HALL(5),
-        BALCONY(6),
-        GARDEN(7),
-        GARAGE(8),
-        BASEMENT(9);
+        ROOM,
+        BATHROOM,
+        TOILET,
+        KITCHEN,
+        HALL,
+        BALCONY,
+        GARDEN,
+        GARAGE,
+        BASEMENT;
 
-        int value;
 
-        public static RoomType valueOf(int value) {
-            return Arrays.stream(values())
-                    .filter(roomType -> roomType.value == value)
-                    .findFirst()
-                    .orElse(null);
+        public static HashSet<String> getStatuses() {
+            HashSet<String> statuses = new HashSet<String>();
+
+            for (RoomType s : RoomType.values()) {
+                statuses.add(s.name());
+            }
+            return statuses;
+
         }
     }
 
@@ -60,7 +66,7 @@ public class Room extends AbstractBaseEntity {
 
     }
 
-    //Testowy
+/*    //Testowy
     public Room(long id, String description, double roomSquareMeters, double expectedRentPrice, RoomType roomType) {
         this.id = id;
         this.roomType = roomType;
@@ -76,7 +82,7 @@ public class Room extends AbstractBaseEntity {
         this.roomSquareMeters = roomSquareMeters;
         this.expectedRentPrice = expectedRentPrice;
         this.occupable = occupable;
-    }
+    }*/
 
 }
 
