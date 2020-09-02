@@ -69,4 +69,9 @@ public class RentService implements AbstractBaseService<Rent, Long> {
         Rent rent = rentRepository.getOne(entityId);
         return rent;
     }
+
+    public List<Rent> getRentHistoryByRoomId(long roomId){
+        List<Rent> rentByRoomId = rentRepository.getRentByRoomId(roomId);
+        return rentByRoomId;
+    }
 }

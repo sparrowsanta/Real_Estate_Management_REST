@@ -1,11 +1,11 @@
 package com.sparrowsanta.real_estate_management_rest.room;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sparrowsanta.real_estate_management_rest.client.Client;
 import com.sparrowsanta.real_estate_management_rest.flat.Flat;
 import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Arrays;
@@ -23,12 +23,14 @@ public class Room extends AbstractBaseEntity {
     private double roomSquareMeters;
     private double expectedRentPrice;
     private RoomType roomType;
+    @Lob
+    private byte[] picUrl;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "flatId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Flat flat;
 
-    private boolean occupable;
+    private boolean occupiable;
 
     @OneToOne
     @JoinColumn(name = "client_id", unique = true)

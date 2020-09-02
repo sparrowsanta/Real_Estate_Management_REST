@@ -77,4 +77,9 @@ public class RoomService implements AbstractBaseService<Room, Long> {
     public List<Room> findAllByFlatId(long flatId){
         return roomRepository.findAllByFlatId(flatId);
     }
+
+    public byte[] picUrlById(long roomId){
+        byte[] bytes = roomRepository.picUrlById(roomId);
+        return bytes;
+    }
 }

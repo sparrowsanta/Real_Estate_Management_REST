@@ -68,4 +68,7 @@ public class FlatService implements AbstractBaseService<Flat, Long> {
     }
 
 
+    public byte[] picFlatUrlById(long id) {
+        return flatRepository.picFlatUrlById(id);
+    }
 }

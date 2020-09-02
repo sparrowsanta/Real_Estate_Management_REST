@@ -15,4 +15,6 @@ public interface FlatRepository extends AbstractBaseRepository<Flat, Long> {
 
     Optional<Flat> findById(Long id);
 
+    @Query(value = "SELECT f.picUrl FROM Flat f WHERE f.id = ?1")
+    byte[] picFlatUrlById(long id);
 }

@@ -1,14 +1,14 @@
 package com.sparrowsanta.real_estate_management_rest.room;
 
-import com.google.gson.Gson;
-import com.sparrowsanta.real_estate_management_rest.flat.Flat;
 import com.sparrowsanta.real_estate_management_rest.flat.FlatService;
 import com.sparrowsanta.real_estate_management_rest.utils.FlatConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.ws.rs.Path;
-import java.util.Arrays;
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 @RestController
@@ -43,9 +43,39 @@ public class RoomController {
         }
         return "OK";
     }
+
+    @GetMapping("/roomsForFlat/{flatId}")
+    public List<Room> getAllRoomsForFlat(@PathVariable(name = "flatId") long flatId) {
+        List<Room> allByFlatId = roomService.findAllByFlatId(flatId);
+        return allByFlatId;
+    }
+
+    @PostMapping("/roomPicture/{id}")
+    public long postRoomPictures(@RequestParam("roomFilePic") MultipartFile roomFilePic, @PathVariable(name = "id") long id) {
+        Room room = roomService.getOne(id);
+        try {
+            room.setPicUrl(roomFilePic.getBytes());
+            roomService.save(room);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return -1;
+        }
+        return room.getFlat().getId();
+    }
+
+    @GetMapping("/roomPicture/{id}")
+    @ResponseBody
+    public String getRoomPictures(@PathVariable(name = "id") long id) {
+        roomService.picUrlById(id);
+
+        byte[] pic = roomService.picUrlById(id);
+        String image = "";
+        if (pic != null && pic.length > 0) {
+            image = Base64.getEncoder().encodeToString(pic);
+        }
+        return image;
+    }
 }
-
-
 
 
 
