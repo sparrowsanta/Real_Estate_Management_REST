@@ -27,6 +27,9 @@ public class Home {
 //        flatDAO.create(flat);
 
         return"home";
+
+
+        
     }
 
 

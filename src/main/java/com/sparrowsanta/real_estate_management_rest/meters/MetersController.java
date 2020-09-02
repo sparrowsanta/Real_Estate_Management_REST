@@ -19,7 +19,6 @@ public class MetersController {
     @Autowired
     private MetersHistoryService metersHistoryService;
 
-
     @GetMapping(value = "/getAll/{flatId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Meters> getMeters(@PathVariable(name = "flatId") Long flatId) {
         return metersService.findAllMetersByFlatId(flatId);
