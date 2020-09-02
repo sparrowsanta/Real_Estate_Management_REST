@@ -76,7 +76,7 @@ public class MetersController {
         return "Ok";
     }
 
-    @PostMapping(value = "/reading/add", produces = "text/plain;charset=UTF-8")
+    @PostMapping(value = "/reading/add", produces = MediaType.APPLICATION_JSON_VALUE)
     public String addMeterReading(@RequestBody MetersHistory reading) {
         metersHistoryService.save(reading);
         return "Ok";

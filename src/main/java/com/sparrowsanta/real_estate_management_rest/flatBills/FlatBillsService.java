@@ -5,8 +5,10 @@ import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseServ
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class FlatBillsService implements AbstractBaseService<FlatBills, Long> {
@@ -68,9 +70,22 @@ public class FlatBillsService implements AbstractBaseService<FlatBills, Long> {
         return flatBills;
     }
 
-    public List<FlatBills> getBillsByFlatIdAndFilter(Long flatId, String filter) {
-        return filter.equals("all") ? flatBillsRepository.findAllByFlatId(flatId) :
-                flatBillsRepository.findAllByPaid(filter.equals("paid"));
+    public List<FlatBills> getBillsByFlatIdAndFilter(Long flatId, String paidFilter, String typeFilter, String dateFromFilter, String dateToFilter) {
+        List<FlatBills> paymentsList = flatBillsRepository.findAllByFlatIdOrderByPaymentDateDesc(flatId);
+
+        paymentsList = paymentsList.stream()
+                .filter(paidFilter.equals("paid") ? FlatBills::isPaid : x -> true)
+                .filter(paidFilter.equals("notPaid") ? x -> !x.isPaid() : x -> true)
+                .filter(!typeFilter.equals("all") ? x -> x.getIncomeOutcome().equals(typeFilter) : x -> true)
+                .filter(!dateFromFilter.equals("-") ?
+                        x -> (x.getPaymentDate().isAfter(LocalDate.parse(dateFromFilter)) || (x.getPaymentDate().isEqual(LocalDate.parse(dateFromFilter))))
+                        : x -> true)
+                .filter(!dateToFilter.equals("-") ?
+                        x -> (x.getPaymentDate().isBefore(LocalDate.parse(dateToFilter)) || (x.getPaymentDate().isEqual(LocalDate.parse(dateToFilter))))
+                        : x -> true)
+                .collect(Collectors.toList());
+
+        return paymentsList;
     }
 
     public FlatBills getLastPaymentByBillDefinitionId(Long billDefinitionId) {

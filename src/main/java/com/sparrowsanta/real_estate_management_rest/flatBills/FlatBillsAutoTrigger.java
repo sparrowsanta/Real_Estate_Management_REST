@@ -41,7 +41,8 @@ public class FlatBillsAutoTrigger {
 //        System.out.println(flatBillsDefinition.getBillDescription());
 //        System.out.println(lastPayment == null ? "Brak płatnośći" : "Ostatnia płatność " + lastPayment.getPaymentDate());
         if (lastPayment == null || lastPayment.getPaymentDate().isBefore(LocalDate.now())) {
-            int monthsToAdd = lastPayment == null ? 1 : flatBillsDefinition.getBillFrequencyInMonths();
+            int monthsToAdd = lastPayment == null ? (flatBillsDefinition.getPaymentTillDayOfMonth() < LocalDate.now().getDayOfMonth() ? 1 : 0)
+                    : flatBillsDefinition.getBillFrequencyInMonths();
             LocalDate newPaymentDate = LocalDate.now();
 
             newPaymentDate = newPaymentDate.plusMonths(monthsToAdd).withDayOfMonth(
