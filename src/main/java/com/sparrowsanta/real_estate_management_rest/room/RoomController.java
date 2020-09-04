@@ -3,7 +3,7 @@ package com.sparrowsanta.real_estate_management_rest.room;
 import com.sparrowsanta.real_estate_management_rest.flat.FlatService;
 import com.sparrowsanta.real_estate_management_rest.utils.FlatConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -64,7 +64,6 @@ public class RoomController {
     }
 
     @GetMapping("/roomPicture/{id}")
-    @ResponseBody
     public String getRoomPictures(@PathVariable(name = "id") long id) {
         roomService.picUrlById(id);
 
@@ -74,6 +73,24 @@ public class RoomController {
             image = Base64.getEncoder().encodeToString(pic);
         }
         return image;
+    }
+
+    @DeleteMapping(value = "/delete/{roomId}", produces = "text/plain;charset=UTF-8")
+    public String deleteRoom(@PathVariable(name = "roomId") long roomId) {
+        roomService.deleteById(roomId);
+        return "OK";
+
+    }
+
+    @GetMapping(value = "/{roomId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Room getRoomById(@PathVariable(name = "roomId") long roomId) {
+        return roomService.getOne(roomId);
+    }
+
+    @PutMapping(value = "/{roomId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public long updateRoomById(@RequestBody Room room, @PathVariable(name = "roomId") long roomId) {
+        roomService.updateRoomDetails(room.getDescription(), room.getRoomSquareMeters(), room.getExpectedRentPrice(), room.getRoomType().value, roomId);
+        return roomService.getFlatByRoomId(roomId);
     }
 }
 

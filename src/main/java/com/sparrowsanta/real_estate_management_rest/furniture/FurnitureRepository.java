@@ -4,7 +4,13 @@ import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseRepo
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
+@Transactional
 public interface FurnitureRepository extends AbstractBaseRepository<Furniture, Long> {
+
+    List<Furniture> findAllByRoomId(long roomId);
+
+    void deleteAllByRoomId(long roomId);
 }
