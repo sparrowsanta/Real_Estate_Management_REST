@@ -69,4 +69,16 @@ public class FurnitureService implements AbstractBaseService<Furniture, Long> {
         Furniture furniture = furnitureRepository.getOne(entityId);
         return furniture;
     }
+
+    public List<Furniture> findAllByRoomId(long roomId) {
+        List<Furniture> allByRoomId = furnitureRepository.findAllByRoomId(roomId);
+        return allByRoomId;
+    }
+
+    public void updateFurnitures(Furniture[] data, long roomId) {
+        furnitureRepository.deleteAllByRoomId(roomId);
+        for (int i = 0; i < data.length; i++) {
+            furnitureRepository.save(data[i]);
+        }
+    }
 }
