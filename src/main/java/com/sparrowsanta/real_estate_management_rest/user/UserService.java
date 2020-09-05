@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,6 +21,9 @@ public class UserService implements AbstractBaseService<User, Long> , UserDetail
 
 
     private final UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder bcryptEncoder;
 
     @Autowired
     public UserService(UserRepository userRepository) {
@@ -71,9 +75,23 @@ public class UserService implements AbstractBaseService<User, Long> , UserDetail
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         if ("realestate".equals(s)) {
-            return new User("realestate", "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6");
+            return new User("realestate", "$2a$10$28bOw6lIbKSKdP2XZpGNgOKmqS9ew4denH0Gi0IGDwOWYXTNSAT/2");
         } else {
             throw new UsernameNotFoundException("User not found with username: " + s);
         }
+    }
+
+    public String changeUserPassword (String userName, String oldPassword, String newPassword){
+        User user = new User("realestate", "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6");
+
+        if (bcryptEncoder.matches(oldPassword,user.getPassword())){
+            System.out.println("Password match changing to : "+ newPassword);
+            user.setPassword(bcryptEncoder.encode(newPassword));
+            System.out.println(user.getPassword());
+        }else{
+            System.out.println("Wrong password for "+user.getUsername());
+        }
+        User newUser = new User();
+        return "Ok";
     }
 }

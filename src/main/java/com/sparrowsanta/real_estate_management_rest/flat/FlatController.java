@@ -24,7 +24,7 @@ public class FlatController {
     private ClientService clientService;
 
 
-    @GetMapping("/getAllFlats")
+    @GetMapping(value = "/getAllFlats", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Flat> getFlats() {
         return flatService.findAll();
     }
