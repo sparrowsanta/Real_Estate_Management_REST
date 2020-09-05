@@ -63,4 +63,9 @@ public class BillsController {
     }
 
 
+    @GetMapping(value = "/billDefinitionsPerMonth/{flatId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<String[]> billDefinitionsPerMonth(@PathVariable(name = "flatId") long flatId) {
+        return flatBillsService.getAllBillsDefinitionPerMonth(flatId);
+    }
+
 }
