@@ -3,18 +3,24 @@ package com.sparrowsanta.real_estate_management_rest.flatBills;
 
 import com.sparrowsanta.real_estate_management_rest.standardJpa.AbstractBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class FlatBillsService implements AbstractBaseService<FlatBills, Long> {
 
     private FlatBillsRepository flatBillsRepository;
+
+    private String[] months;
+    private String[] billsDefPerMonth;
+    private String[] billsPaidPerMonth;
+    private final PageRequest pageRequest = PageRequest.of(0, 5);
+    List<String[]> getAllBillsDefinitionPerMonth = new ArrayList<>();
 
     @Autowired
     public FlatBillsService(FlatBillsRepository flatBillsRepository) {
@@ -89,13 +95,19 @@ public class FlatBillsService implements AbstractBaseService<FlatBills, Long> {
         return paymentsList;
     }
 
-    public List<String[]> getAllBillsDefinitionPerMonth() {
-        String[] months = flatBillsRepository.getMonths();
-        String[] BillsDefPerMonth = flatBillsRepository.getSumBillsDefinitionPerMonth();
-        List<String[]> getAllBillsDefinitionPerMonth = new ArrayList<>();
-        getAllBillsDefinitionPerMonth.add(months);
-        getAllBillsDefinitionPerMonth.add(BillsDefPerMonth);
+    public List<String[]> getAllBillsDefinitionPerMonth(long flatId) {
+        months = flatBillsRepository.getMonths();
+        billsDefPerMonth = flatBillsRepository.getSumBillsDefinitionPerMonth(flatId);
+        billsPaidPerMonth = flatBillsRepository.getSumBillsPerMonth(flatId);
 
+
+        Collections.reverse(Arrays.asList(months));
+        Collections.reverse(Arrays.asList(billsDefPerMonth));
+        Collections.reverse(Arrays.asList(billsPaidPerMonth));
+
+        getAllBillsDefinitionPerMonth.add(months);
+        getAllBillsDefinitionPerMonth.add(billsDefPerMonth);
+        getAllBillsDefinitionPerMonth.add(billsPaidPerMonth);
         return getAllBillsDefinitionPerMonth;
     }
 

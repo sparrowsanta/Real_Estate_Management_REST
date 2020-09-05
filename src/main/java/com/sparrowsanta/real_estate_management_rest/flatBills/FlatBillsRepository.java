@@ -17,13 +17,17 @@ public interface FlatBillsRepository extends AbstractBaseRepository<FlatBills, L
     FlatBills findFirstByBillDefinitionIdOrderByPaymentDateDesc(Long billDefinitionId);
 
 
-    @Query(value = "SELECT MONTH(fb.payment_date) AS MONTH FROM flat_bills_definitions fbd JOIN flat_bills fb ON fb.bill_definition_id = fbd.id GROUP BY MONTH(fb.payment_date) ORDER BY MONTH(fb.payment_date)" , nativeQuery = true)
+    @Query(value = "SELECT MONTH(fb.payment_date) AS MONTH FROM flat_bills_definitions fbd JOIN flat_bills fb ON fb.bill_definition_id = fbd.id GROUP BY MONTH(fb.payment_date) ORDER BY MONTH(fb.payment_date) DESC LIMIT 5" , nativeQuery = true)
     @Modifying
     String[] getMonths();
 
-    @Query(value = "SELECT SUM(fbd.bill_amount) AS MONTH FROM flat_bills_definitions fbd JOIN flat_bills fb ON fb.bill_definition_id = fbd.id GROUP BY MONTH(fb.payment_date) ORDER BY MONTH(fb.payment_date)" , nativeQuery = true)
+    @Query(value = "SELECT SUM(fbd.bill_amount) AS MONTH FROM flat_bills_definitions fbd JOIN flat_bills fb ON fb.bill_definition_id = fbd.id WHERE fbd.flat_id = ?1 GROUP BY MONTH(fb.payment_date) ORDER BY MONTH(fb.payment_date) DESC LIMIT 5" , nativeQuery = true)
     @Modifying
-    String[] getSumBillsDefinitionPerMonth();
+    String[] getSumBillsDefinitionPerMonth(long flat_id);
+
+    @Query(value = "SELECT MONTH(fb.payment_date) AS MONTH, SUM(fb.amount) AS PAID_AMOUNT FROM flat_bills fb JOIN flat_bills_definitions fbd on fb.bill_definition_id = fbd.id WHERE paid = 1 AND fbd.flat_id = ?1 GROUP BY MONTH(fb.payment_date), paid ORDER BY MONTH(fb.payment_date) DESC LIMIT 5" , nativeQuery = true)
+    @Modifying
+    String[] getSumBillsPerMonth(long flat_id);
 
 /*    /HQL query
     @Query("SELECT c,l,p,u FROM  Course c, Lesson l, Progress p, User u "
@@ -31,12 +35,13 @@ public interface FlatBillsRepository extends AbstractBaseRepository<FlatBills, L
     public List<Object[]> getLessonsWithProgress(@Param("userId") Integer userId, @Param("courseId")Integer courseId);*/
 
 
-//    SELECT SUM(fbd.bill_amount) as BILL_DEFINITION, MONTH(fb.payment_date) AS MONTH
-//    FROM flat_bills fb
-//    JOIN flat_bills_definitions fbd on fb.bill_definition_id = fbd.id
-//    WHERE MONTH(fb.payment_date)
-//    GROUP BY MONTH(fb.payment_date)
-//    ORDER BY payment_date;
+/*    SELECT MONTH(fb.payment_date) AS MONTH, SUM(fb.amount) AS PAID_AMMOUNT, fb.paid AS PAID
+    FROM flat_bills fb
+    JOIN flat_bills_definitions fbd on fb.bill_definition_id = fbd.id
+    WHERE paid = 1
+    GROUP BY MONTH(fb.payment_date), paid
+    ORDER BY payment_date DESC
+    LIMIT 5*/
 
 //    SET description = ?1, room_square_meters = ?2, expected_rent_price = ?3, room_type = ?4 WHERE r.id = ?5"
 }

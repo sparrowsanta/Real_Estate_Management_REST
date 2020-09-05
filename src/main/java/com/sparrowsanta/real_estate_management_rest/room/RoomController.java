@@ -79,7 +79,6 @@ public class RoomController {
     public String deleteRoom(@PathVariable(name = "roomId") long roomId) {
         roomService.deleteById(roomId);
         return "OK";
-
     }
 
     @GetMapping(value = "/{roomId}", produces = MediaType.APPLICATION_JSON_VALUE)
