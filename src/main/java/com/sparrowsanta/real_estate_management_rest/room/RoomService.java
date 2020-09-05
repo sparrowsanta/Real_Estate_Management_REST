@@ -20,8 +20,7 @@ public class RoomService implements AbstractBaseService<Room, Long> {
 
     @Override
     public Room save(Room entity) {
-        roomRepository.save(entity);
-        return entity;
+        return roomRepository.save(entity);
     }
 
     @Override
@@ -40,8 +39,8 @@ public class RoomService implements AbstractBaseService<Room, Long> {
 
     @Override
     public Room update(Room entity) {
-        roomRepository.save(entity);
-        return entity;
+        return roomRepository.save(entity);
+
     }
 
     @Override
@@ -74,12 +73,20 @@ public class RoomService implements AbstractBaseService<Room, Long> {
     }
 
 
-    public List<Room> findAllByFlatId(long flatId){
+    public List<Room> findAllByFlatId(long flatId) {
         return roomRepository.findAllByFlatId(flatId);
     }
 
-    public byte[] picUrlById(long roomId){
+    public byte[] picUrlById(long roomId) {
         byte[] bytes = roomRepository.picUrlById(roomId);
         return bytes;
+    }
+
+    public void updateRoomDetails(String description, double roomSquareMeters, double expectedRentPrice, int roomType, long roomId) {
+        roomRepository.updateRoomDetails(description,roomSquareMeters, expectedRentPrice, roomType,  roomId);
+    }
+
+    public long getFlatByRoomId(long roomId){
+        return roomRepository.flatByMyRoomId(roomId);
     }
 }

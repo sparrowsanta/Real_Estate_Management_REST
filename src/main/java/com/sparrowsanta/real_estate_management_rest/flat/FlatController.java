@@ -1,11 +1,9 @@
 package com.sparrowsanta.real_estate_management_rest.flat;
 
 import com.sparrowsanta.real_estate_management_rest.client.ClientService;
-import com.sparrowsanta.real_estate_management_rest.room.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -68,8 +66,6 @@ public class FlatController {
             return -1;
         }
         return flat.getId();
-
-
     }
 
     @GetMapping("/getFlatById/{flatId}")
