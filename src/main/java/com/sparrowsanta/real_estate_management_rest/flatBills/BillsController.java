@@ -63,4 +63,9 @@ public class BillsController {
     }
 
 
+    @GetMapping(value = "/billDefinitionsPerMonth", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<String[]> billDefinitionsPerMonth(){
+        return flatBillsService.getAllBillsDefinitionPerMonth();
+    }
+
 }

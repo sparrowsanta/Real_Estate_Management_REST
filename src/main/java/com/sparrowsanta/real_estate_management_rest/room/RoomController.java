@@ -92,6 +92,8 @@ public class RoomController {
         roomService.updateRoomDetails(room.getDescription(), room.getRoomSquareMeters(), room.getExpectedRentPrice(), room.getRoomType().value, roomId);
         return roomService.getFlatByRoomId(roomId);
     }
+
+
 }
 
 

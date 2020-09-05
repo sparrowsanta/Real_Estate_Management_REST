@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -86,6 +87,16 @@ public class FlatBillsService implements AbstractBaseService<FlatBills, Long> {
                 .collect(Collectors.toList());
 
         return paymentsList;
+    }
+
+    public List<String[]> getAllBillsDefinitionPerMonth() {
+        String[] months = flatBillsRepository.getMonths();
+        String[] BillsDefPerMonth = flatBillsRepository.getSumBillsDefinitionPerMonth();
+        List<String[]> getAllBillsDefinitionPerMonth = new ArrayList<>();
+        getAllBillsDefinitionPerMonth.add(months);
+        getAllBillsDefinitionPerMonth.add(BillsDefPerMonth);
+
+        return getAllBillsDefinitionPerMonth;
     }
 
     public FlatBills getLastPaymentByBillDefinitionId(Long billDefinitionId) {
