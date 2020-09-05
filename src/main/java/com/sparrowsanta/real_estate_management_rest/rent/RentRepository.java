@@ -15,6 +15,6 @@ public interface RentRepository extends AbstractBaseRepository<Rent, Long> {
     @Query(value = "SELECT r FROM Rent r WHERE r.room.id = ?1")
     List<Rent> getRentByRoomId(long roomId);
 
-    @Query(value = "SELECT r FROM Rent r WHERE r.room.id = ?1 AND FUNCTION('DATEDIFF', r.rentDateTo, FUNCTION('NOW'))  >= 0 ORDER BY FUNCTION('DATEDIFF', r.rentDateTo, FUNCTION('NOW'))")
+    @Query(value = "SELECT r FROM Rent r WHERE r.room.id = ?1 AND FUNCTION('DATEDIFF', FUNCTION('NOW'), r.rentDateFrom) >= 0 AND FUNCTION('DATEDIFF', r.rentDateTo, FUNCTION('NOW'))  >= 0 ORDER BY FUNCTION('DATEDIFF', r.rentDateTo, FUNCTION('NOW'))")
     List<Rent> getMostRecentRent(long roomId, Pageable pageable);
 }

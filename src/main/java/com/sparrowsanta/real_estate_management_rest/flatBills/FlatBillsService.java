@@ -96,6 +96,7 @@ public class FlatBillsService implements AbstractBaseService<FlatBills, Long> {
     }
 
     public List<String[]> getAllBillsDefinitionPerMonth(long flatId) {
+        getAllBillsDefinitionPerMonth.clear();
         months = flatBillsRepository.getMonths();
         billsDefPerMonth = flatBillsRepository.getSumBillsDefinitionPerMonth(flatId);
         billsPaidPerMonth = flatBillsRepository.getSumBillsPerMonth(flatId);
