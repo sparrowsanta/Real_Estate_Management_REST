@@ -17,7 +17,7 @@ public interface FlatBillsRepository extends AbstractBaseRepository<FlatBills, L
     FlatBills findFirstByBillDefinitionIdOrderByPaymentDateDesc(Long billDefinitionId);
 
 
-    @Query(value = "SELECT MONTHNAME(fb.payment_date) AS MONTH FROM flat_bills_definitions fbd JOIN flat_bills fb ON fb.bill_definition_id = fbd.id GROUP BY MONTH(fb.payment_date) ORDER BY MONTH(fb.payment_date) DESC LIMIT 5" , nativeQuery = true)
+    @Query(value = "SELECT MONTHNAME(fb.payment_date) AS MONTH FROM flat_bills_definitions fbd JOIN flat_bills fb ON fb.bill_definition_id = fbd.id GROUP BY MONTHNAME(fb.payment_date)  ORDER BY MONTHNAME(fb.payment_date)  DESC LIMIT 5" , nativeQuery = true)
     @Modifying
     String[] getMonths();
 
