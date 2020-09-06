@@ -91,7 +91,6 @@ public class FlatBillsService implements AbstractBaseService<FlatBills, Long> {
                         x -> (x.getPaymentDate().isBefore(LocalDate.parse(dateToFilter)) || (x.getPaymentDate().isEqual(LocalDate.parse(dateToFilter))))
                         : x -> true)
                 .collect(Collectors.toList());
-
         return paymentsList;
     }
 
