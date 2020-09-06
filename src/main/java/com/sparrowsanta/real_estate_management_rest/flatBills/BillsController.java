@@ -51,8 +51,14 @@ public class BillsController {
     }
 
     @PutMapping(value = "/payment/edit/{paymentId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String editMeterReading(@RequestBody FlatBills payment) {
+    public String editPayment(@RequestBody FlatBills payment) {
         flatBillsService.save(payment);
+        return "Ok";
+    }
+
+    @PutMapping(value = "/edit/{billId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String editBillDefinition(@RequestBody FlatBillsDefinitions bill) {
+        flatBillsDefinitionsService.save(bill);
         return "Ok";
     }
 
@@ -62,10 +68,21 @@ public class BillsController {
         return "Ok";
     }
 
+    @DeleteMapping(value = "/delete/{billId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String delPaymentDef(@PathVariable(name = "billId") long billId) {
+        flatBillsDefinitionsService.delete(flatBillsDefinitionsService.findById(billId).get());
+        return "Ok";
+    }
 
     @GetMapping(value = "/billDefinitionsPerMonth/{flatId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<String[]> billDefinitionsPerMonth(@PathVariable(name = "flatId") long flatId) {
         return flatBillsService.getAllBillsDefinitionPerMonth(flatId);
+    }
+
+    @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String addNewPaymentDefinition(@RequestBody FlatBillsDefinitions definition) {
+        flatBillsDefinitionsService.save(definition);
+        return "Ok";
     }
 
 }
