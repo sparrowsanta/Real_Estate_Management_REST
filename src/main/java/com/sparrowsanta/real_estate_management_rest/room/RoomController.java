@@ -79,7 +79,6 @@ public class RoomController {
     public String deleteRoom(@PathVariable(name = "roomId") long roomId) {
         roomService.deleteById(roomId);
         return "OK";
-
     }
 
     @GetMapping(value = "/{roomId}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -92,6 +91,8 @@ public class RoomController {
         roomService.updateRoomDetails(room.getDescription(), room.getRoomSquareMeters(), room.getExpectedRentPrice(), room.getRoomType().value, roomId);
         return roomService.getFlatByRoomId(roomId);
     }
+
+
 }
 
 
