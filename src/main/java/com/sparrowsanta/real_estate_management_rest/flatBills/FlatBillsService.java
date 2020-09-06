@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Array;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -100,10 +101,13 @@ public class FlatBillsService implements AbstractBaseService<FlatBills, Long> {
         billsDefPerMonth = flatBillsRepository.getSumBillsDefinitionPerMonth(flatId);
         billsPaidPerMonth = flatBillsRepository.getSumBillsPerMonth(flatId);
 
-
         Collections.reverse(Arrays.asList(months));
         Collections.reverse(Arrays.asList(billsDefPerMonth));
         Collections.reverse(Arrays.asList(billsPaidPerMonth));
+
+        for (int i = 0; i < months.length; i++) {
+            months[i] = String.valueOf(Month.of(Integer.parseInt(months[i])));
+        }
 
         getAllBillsDefinitionPerMonth.add(months);
         getAllBillsDefinitionPerMonth.add(billsDefPerMonth);
